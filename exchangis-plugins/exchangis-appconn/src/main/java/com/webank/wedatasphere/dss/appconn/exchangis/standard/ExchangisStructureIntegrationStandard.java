@@ -6,7 +6,7 @@ import com.webank.wedatasphere.dss.standard.app.structure.project.ProjectService
 import com.webank.wedatasphere.dss.standard.app.structure.role.RoleService;
 import com.webank.wedatasphere.dss.standard.app.structure.status.AppStatusService;
 import com.webank.wedatasphere.dss.standard.common.desc.AppInstance;
-import com.webank.wedatasphere.dss.appconn.exchangis.service.ExchangisProjectService;
+import com.webank.wedatasphere.dss.appconn.exchangis.project.ExchangisProjectService;
 
 public class ExchangisStructureIntegrationStandard implements StructureIntegrationStandard {
 
