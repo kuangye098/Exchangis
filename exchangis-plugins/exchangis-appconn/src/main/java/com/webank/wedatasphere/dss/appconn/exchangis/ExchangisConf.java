@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.exchangis.appconn;
+package com.webank.wedatasphere.dss.appconn.exchangis;
 
 import com.webank.wedatasphere.linkis.common.conf.CommonVars;
 

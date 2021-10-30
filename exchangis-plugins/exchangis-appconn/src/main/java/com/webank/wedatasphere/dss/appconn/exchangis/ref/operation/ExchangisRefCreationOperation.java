@@ -1,27 +1,33 @@
-package com.webank.wedatasphere.exchangis.appconn.ref.operation;
+package com.webank.wedatasphere.dss.appconn.exchangis.ref.operation;
 
-import com.webank.wedatasphere.dss.standard.app.development.DevelopmentService;
-import com.webank.wedatasphere.dss.standard.app.development.crud.CreateRequestRef;
-import com.webank.wedatasphere.dss.standard.app.development.crud.RefCreationOperation;
+
+import com.webank.wedatasphere.dss.appconn.exchangis.ExchangisConf;
+import com.webank.wedatasphere.dss.standard.app.development.operation.RefCreationOperation;
+import com.webank.wedatasphere.dss.standard.app.development.ref.CreateRequestRef;
+import com.webank.wedatasphere.dss.standard.app.development.service.DevelopmentService;
 import com.webank.wedatasphere.dss.standard.app.sso.builder.SSOUrlBuilderOperation;
 import com.webank.wedatasphere.dss.standard.app.sso.origin.request.OriginSSORequestOperation;
 import com.webank.wedatasphere.dss.standard.app.sso.request.SSORequestOperation;
 import com.webank.wedatasphere.dss.standard.common.entity.ref.ResponseRef;
 import com.webank.wedatasphere.dss.standard.common.exception.operation.ExternalOperationFailedException;
-import com.webank.wedatasphere.exchangis.appconn.action.ExchangisPostAction;
-import com.webank.wedatasphere.exchangis.appconn.ref.entity.ExchangisCreateRequestRef;
-import com.webank.wedatasphere.exchangis.appconn.ref.entity.ExchangisCreateResponseRef;
+import com.webank.wedatasphere.dss.appconn.exchangis.action.ExchangisPostAction;
+import com.webank.wedatasphere.dss.appconn.exchangis.ref.entity.ExchangisCreateRequestRef;
+import com.webank.wedatasphere.dss.appconn.exchangis.ref.entity.ExchangisCreateResponseRef;
 import com.webank.wedatasphere.linkis.httpclient.request.HttpAction;
 import com.webank.wedatasphere.linkis.httpclient.response.HttpResult;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ExchangisRefCreationOperation implements RefCreationOperation<CreateRequestRef, ResponseRef> {
+public class ExchangisRefCreationOperation implements RefCreationOperation<CreateRequestRef> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisRefCreationOperation.class);
 
     private DevelopmentService developmentService;
     private SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation;
 
     public ExchangisRefCreationOperation(DevelopmentService developmentService) {
         this.developmentService = developmentService;
-        this.ssoRequestOperation = new OriginSSORequestOperation(this.developmentService.getAppDesc().getAppName());
+        this.ssoRequestOperation = new OriginSSORequestOperation(ExchangisConf.APP_NAME.getValue());
     }
 
     @Override
@@ -31,38 +37,24 @@ public class ExchangisRefCreationOperation implements RefCreationOperation<Creat
         createRequestRef.setParameter("example-param2", "32");
         createRequestRef.setParameter("example-param3", "male");
         return requestCall(createRequestRef);
-//        return null;
     }
 
     // 同步请求三方系统
     private ResponseRef requestCall(ExchangisCreateRequestRef requestRef) throws ExternalOperationFailedException {
 
-        String url = getBaseUrl() + "/development/create";
-
-        System.out.println("requestCall => " + url);
-
         ExchangisPostAction exchangisPostAction = new ExchangisPostAction();
-//        examplePostAction.setUser(requestRef.getUsername());
         exchangisPostAction.addRequestPayload("name", requestRef.getName());
         exchangisPostAction.addRequestPayload("projectId", requestRef.getParameter("projectId"));
-//        examplePostAction.addRequestPayload(CSCommonUtils.CONTEXT_ID_STR, requestRef.getJobContent().get(CSCommonUtils.CONTEXT_ID_STR));
-//        if(requestRef.getJobContent().get("bindViewKey") != null){
-//            String viewNodeName = requestRef.getJobContent().get("bindViewKey").toString();
-//            if(StringUtils.isNotBlank(viewNodeName) && !"empty".equals(viewNodeName)){
-//                viewNodeName = getNodeNameByKey(viewNodeName,(String) requestRef.getJobContent().get("json"));
-//                visualisPostAction.addRequestPayload(CSCommonUtils.NODE_NAME_STR, viewNodeName);
-//            }
-//        }
-        SSOUrlBuilderOperation ssoUrlBuilderOperation = requestRef.getWorkspace().getSSOUrlBuilderOperation().copy();
-        ssoUrlBuilderOperation.setAppName(developmentService.getAppDesc().getAppName());
-        ssoUrlBuilderOperation.setReqUrl(url);
-        ssoUrlBuilderOperation.setWorkspace(requestRef.getWorkspace().getWorkspaceName());
 
-        System.out.println(ssoUrlBuilderOperation);
+        SSOUrlBuilderOperation ssoUrlBuilderOperation = requestRef.getWorkspace().getSSOUrlBuilderOperation().copy();
+        ssoUrlBuilderOperation.setAppName(ExchangisConf.APP_NAME.getValue());
+        ssoUrlBuilderOperation.setReqUrl(getBaseUrl() + "/development/create");
+        ssoUrlBuilderOperation.setWorkspace(requestRef.getWorkspace().getWorkspaceName());
 
         ResponseRef responseRef;
         try{
-            System.out.println("ssoUrlBuilderOperation builtUrl => " + ssoUrlBuilderOperation.getBuiltUrl());
+            LOGGER.info("exchangisPostAction  =>  {},ssoUrlBuilderOperation builtUrl => {}",
+                    exchangisPostAction,ssoUrlBuilderOperation.getBuiltUrl());
             exchangisPostAction.setUrl(ssoUrlBuilderOperation.getBuiltUrl());
             //
             HttpResult httpResult = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation, exchangisPostAction);
@@ -87,7 +79,7 @@ public class ExchangisRefCreationOperation implements RefCreationOperation<Creat
     }
 
     @Override
-    public void setDevelopmentService(DevelopmentService service) {
-        this.developmentService = service;
+    public void setDevelopmentService(DevelopmentService developmentService) {
+        this.developmentService = developmentService;
     }
 }

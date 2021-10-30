@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.exchangis.appconn.sso;
+package com.webank.wedatasphere.dss.appconn.exchangis.sso;
 
 import com.webank.wedatasphere.dss.standard.app.sso.builder.SSOUrlBuilderOperation;
 import com.webank.wedatasphere.dss.standard.app.sso.request.SSORequestOperation;
@@ -12,26 +12,20 @@ import org.slf4j.LoggerFactory;
 public class ExchangisPostRequestOperation implements SSORequestOperation<ExchangisHttpPost, CloseableHttpResponse> {
     private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisPostRequestOperation.class);
 
-    private ExchangisSecurityService exampleSecurityService;
-
-    private final Object LOCK = new Object();
+    private ExchangisSecurityService exchangisSecurityService;
 
     private CloseableHttpClient httpClient;
 
     public ExchangisPostRequestOperation(String baseUrl) {
-        this.exampleSecurityService = ExchangisSecurityService.getInstance(baseUrl);
+        this.exchangisSecurityService = ExchangisSecurityService.getInstance(baseUrl);
     }
 
     public CloseableHttpResponse requestWithSSO(SSOUrlBuilderOperation urlBuilder, ExchangisHttpPost req) throws AppStandardErrorException {
         try {
-            System.out.println("in requestWithSSO() method req.getUser() => " + req.getUser() + " , exampleSecurityService => " + this.exampleSecurityService);
-            System.out.println("console exampleSecurityService");
-            System.out.println(this.exampleSecurityService);
-            System.out.println("after console exampleSecurityService");
+            LOGGER.info("");
             this.httpClient = HttpClients.custom().build();
             return this.httpClient.execute(req);
         } catch (Throwable t) {
-            System.out.println(t.getMessage());
             throw new AppStandardErrorException(90009, t.getMessage(), t);
         } finally {}
     }

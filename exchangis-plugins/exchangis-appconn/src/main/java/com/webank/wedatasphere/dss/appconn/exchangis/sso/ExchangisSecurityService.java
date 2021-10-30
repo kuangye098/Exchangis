@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.exchangis.appconn.sso;
+package com.webank.wedatasphere.dss.appconn.exchangis.sso;
 
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
@@ -84,7 +84,7 @@ public class ExchangisSecurityService {
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", "nutsjian"));
         params.add(new BasicNameValuePair("password", "abc123"));
-        httpPost.setEntity((HttpEntity)new UrlEncodedFormEntity(params));
+        httpPost.setEntity(new UrlEncodedFormEntity(params));
         BasicCookieStore basicCookieStore = new BasicCookieStore();
         CloseableHttpClient httpClient = null;
         CloseableHttpResponse response = null;

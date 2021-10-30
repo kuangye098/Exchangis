@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.exchangis.appconn.sso;
+package com.webank.wedatasphere.dss.appconn.exchangis.sso;
 
 import org.apache.http.client.methods.HttpPost;
 

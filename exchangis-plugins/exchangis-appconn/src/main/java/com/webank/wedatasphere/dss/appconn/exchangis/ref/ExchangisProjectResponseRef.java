@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.exchangis.appconn.ref;
+package com.webank.wedatasphere.dss.appconn.exchangis.ref;
 
 import com.webank.wedatasphere.dss.standard.app.structure.project.ProjectResponseRef;
 import com.webank.wedatasphere.dss.standard.common.desc.AppInstance;

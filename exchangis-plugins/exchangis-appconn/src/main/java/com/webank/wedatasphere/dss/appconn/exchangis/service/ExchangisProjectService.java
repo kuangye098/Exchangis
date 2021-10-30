@@ -1,36 +1,25 @@
-package com.webank.wedatasphere.exchangis.appconn.service;
+package com.webank.wedatasphere.dss.appconn.exchangis.service;
 
+import com.webank.wedatasphere.dss.appconn.exchangis.operation.ExchangisProjectCreationOperation;
 import com.webank.wedatasphere.dss.standard.app.structure.StructureIntegrationStandard;
 import com.webank.wedatasphere.dss.standard.app.structure.project.*;
-import com.webank.wedatasphere.dss.standard.common.app.AppIntegrationService;
-import com.webank.wedatasphere.dss.standard.common.desc.AppDesc;
 import com.webank.wedatasphere.dss.standard.common.desc.AppInstance;
 import com.webank.wedatasphere.dss.standard.common.service.Operation;
-import com.webank.wedatasphere.exchangis.appconn.operation.ExchangisProjectCreationOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class ExchangisProjectService implements ProjectService {
+public class ExchangisProjectService extends ProjectService {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(ExchangisProjectService.class);
 
     private AppInstance appInstance;
 
     private StructureIntegrationStandard structureIntegrationStandard;
 
-    private AppDesc appDesc;
-
     private Map<Class<? extends Operation>, Operation<?, ?>> operationMap = new ConcurrentHashMap<>();
-
-    public void setAppDesc(AppDesc appDesc) {
-        this.appDesc = appDesc;
-    }
-
-    public AppDesc getAppDesc() {
-        return this.appDesc;
-    }
 
     public Operation createOperation(Class<? extends Operation> clazz) {
         return null;
@@ -42,12 +31,6 @@ public class ExchangisProjectService implements ProjectService {
 
     public boolean isOperationNecessary(Class<? extends Operation> clazz) {
         return false;
-    }
-
-    public void setSSOService(AppIntegrationService ssoService) {}
-
-    public AppIntegrationService getSSOService() {
-        return null;
     }
 
     public void setAppStandard(StructureIntegrationStandard appStandard) {

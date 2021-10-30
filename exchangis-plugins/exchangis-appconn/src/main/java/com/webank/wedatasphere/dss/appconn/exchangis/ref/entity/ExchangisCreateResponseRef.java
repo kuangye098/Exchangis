@@ -1,7 +1,7 @@
-package com.webank.wedatasphere.exchangis.appconn.ref.entity;
+package com.webank.wedatasphere.dss.appconn.exchangis.ref.entity;
 
 import com.webank.wedatasphere.dss.standard.common.entity.ref.AbstractResponseRef;
-import com.webank.wedatasphere.exchangis.appconn.utils.NumberUtils;
+import com.webank.wedatasphere.dss.appconn.exchangis.utils.NumberUtils;
 import com.webank.wedatasphere.linkis.server.BDPJettyServerHelper;
 
 import java.util.Map;
@@ -15,16 +15,15 @@ public class ExchangisCreateResponseRef extends AbstractResponseRef {
         if (status != 0) {
             errorMsg = responseMap.get("message").toString();
         }
-//        widgetId = ((Map<String, Object>) responseMap.get("data")).get("widgetId").toString();
     }
 
     @Override
     public Map<String, Object> toMap() {
-        return null;
+        return responseMap;
     }
 
     @Override
     public String getErrorMsg() {
-        return null;
+        return errorMsg;
     }
 }

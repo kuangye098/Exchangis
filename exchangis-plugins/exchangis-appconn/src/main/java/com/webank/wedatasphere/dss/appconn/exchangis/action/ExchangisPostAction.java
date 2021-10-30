@@ -1,4 +1,4 @@
-package com.webank.wedatasphere.exchangis.appconn.action;
+package com.webank.wedatasphere.dss.appconn.exchangis.action;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.webank.wedatasphere.linkis.httpclient.request.POSTAction;
