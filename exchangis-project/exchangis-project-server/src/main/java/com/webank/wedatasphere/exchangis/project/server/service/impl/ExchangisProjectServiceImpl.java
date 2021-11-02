@@ -48,7 +48,7 @@ public class ExchangisProjectServiceImpl implements ExchangisProjectService {
         ExchangisProject entity = new ExchangisProject();
         entity.setCreateBy(username);
         entity.setCreateTime(now);
-        entity.setDssProjectId(1L);
+        entity.setDssProjectId(createProjectRequest.getProjectId());
         entity.setName(projectName);
         entity.setTags(tags);
         entity.setEditUsers(editUsers);

@@ -52,8 +52,10 @@ public class ExchangisProjectCreationOperation implements ProjectCreationOperati
         httpPost.setUrl(projectUrl);
         httpPost.setUser(requestRef.getCreateBy());
         httpPost.addRequestPayload("workspaceName", requestRef.getWorkspaceName());
-        httpPost.addRequestPayload("name", requestRef.getName());
+        httpPost.addRequestPayload("projectName", requestRef.getName());
         httpPost.addRequestPayload("createdBy", requestRef.getCreateBy());
+        httpPost.addRequestPayload("description", requestRef.getDescription());
+        httpPost.addRequestPayload("projectId", requestRef.getId());
 
         SSOUrlBuilderOperation ssoUrlBuilderOperation = requestRef.getWorkspace().getSSOUrlBuilderOperation().copy();
         ssoUrlBuilderOperation.setAppName(APP_NAME.getValue());
