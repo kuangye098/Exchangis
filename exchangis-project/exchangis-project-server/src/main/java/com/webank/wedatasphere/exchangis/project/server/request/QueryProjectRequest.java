@@ -2,7 +2,7 @@ package com.webank.wedatasphere.exchangis.project.server.request;
 
 import java.io.Serializable;
 
-public class ProjectQueryRequest implements Serializable {
+public class QueryProjectRequest implements Serializable {
 
     private static final long serialVersionUID=1L;
 

@@ -43,7 +43,7 @@ public class ExchangisProjectCreationOperation implements ProjectCreationOperati
 
         String url = getBaseUrl() + projectUrl;
 
-        LOGGER.info("example project create operation .....ProjectRequestRef = {},projectUrl = {} " +
+        LOGGER.info("project create operation .....ProjectRequestRef = {},projectUrl = {} " +
                 "            , dssUrl = {}.",requestRef,this.projectUrl,url);
 
         ExchangisProjectResponseRef responseRef = null;
@@ -65,12 +65,17 @@ public class ExchangisProjectCreationOperation implements ProjectCreationOperati
         HttpResult httpResponse;
         try {
             httpResponse = this.ssoRequestOperation.requestWithSSO(ssoUrlBuilderOperation,httpPost);
-            LOGGER.error("{}, exchangis {}", requestRef.getName(), httpResponse.getResponseBody());
-            //TODO 解析创建项目返回
-            responseRef = new ExchangisProjectResponseRef(httpResponse.getResponseBody(),0);
-            responseRef.setProjectRefId(0L);
+            LOGGER.info("{}, exchangis {}", requestRef.getName(), httpResponse.getResponseBody());
+            if(httpResponse.getStatusCode() == 200){
+                responseRef = new ExchangisProjectResponseRef(httpResponse.getResponseBody(),0);
+                responseRef.setProjectRefId((Long)responseRef.toMap().get("projectId"));
+            }else {
+                ExchangisExceptionUtils.dealErrorException(60051,
+                        "failed to create project in exchangis : " + responseRef.getErrorMsg(),
+                        ExternalOperationFailedException.class);
+            }
         } catch (Throwable t) {
-            ExchangisExceptionUtils.dealErrorException(60051, "failed to create project in example", t, ExternalOperationFailedException.class);
+            ExchangisExceptionUtils.dealErrorException(60051, "failed to create project in exchangis", t, ExternalOperationFailedException.class);
         }
         return responseRef;
     }

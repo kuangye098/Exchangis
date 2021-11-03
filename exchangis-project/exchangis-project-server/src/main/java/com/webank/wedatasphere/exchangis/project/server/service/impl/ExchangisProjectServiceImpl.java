@@ -8,10 +8,9 @@ import com.webank.wedatasphere.exchangis.project.server.dto.ExchangisProjectGetD
 import com.webank.wedatasphere.exchangis.project.server.entity.ExchangisProject;
 import com.webank.wedatasphere.exchangis.project.server.exception.ExchangisProjectErrorException;
 import com.webank.wedatasphere.exchangis.project.server.request.CreateProjectRequest;
-import com.webank.wedatasphere.exchangis.project.server.request.ProjectQueryRequest;
+import com.webank.wedatasphere.exchangis.project.server.request.QueryProjectRequest;
 import com.webank.wedatasphere.exchangis.project.server.request.UpdateProjectRequest;
 import com.webank.wedatasphere.exchangis.project.server.service.ExchangisProjectService;
-import com.webank.wedatasphere.linkis.server.security.SecurityFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -99,12 +98,12 @@ public class ExchangisProjectServiceImpl implements ExchangisProjectService {
     }
 
     @Override
-    public List<ExchangisProjectDTO> queryProjects(ProjectQueryRequest projectQueryRequest) {
+    public List<ExchangisProjectDTO> queryProjects(QueryProjectRequest queryProjectRequest) {
         QueryWrapper<ExchangisProject> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("create_by", projectQueryRequest.getUsername());
+        queryWrapper.eq("create_by", queryProjectRequest.getUsername());
 
-        if (!Strings.isNullOrEmpty(projectQueryRequest.getName())) {
-            queryWrapper.like("name", projectQueryRequest.getName());
+        if (!Strings.isNullOrEmpty(queryProjectRequest.getName())) {
+            queryWrapper.like("name", queryProjectRequest.getName());
         }
 
         List<ExchangisProject> exchangisProjects = this.exchangisProjectMapper.selectList(queryWrapper);

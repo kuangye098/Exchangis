@@ -5,12 +5,11 @@ import com.webank.wedatasphere.exchangis.project.server.dto.ExchangisProjectDTO;
 import com.webank.wedatasphere.exchangis.project.server.dto.ExchangisProjectGetDTO;
 import com.webank.wedatasphere.exchangis.project.server.entity.ExchangisProject;
 import com.webank.wedatasphere.exchangis.project.server.request.CreateProjectRequest;
-import com.webank.wedatasphere.exchangis.project.server.request.ProjectQueryRequest;
+import com.webank.wedatasphere.exchangis.project.server.request.QueryProjectRequest;
 import com.webank.wedatasphere.exchangis.project.server.request.UpdateProjectRequest;
 import com.webank.wedatasphere.exchangis.project.server.service.ExchangisProjectService;
 import com.webank.wedatasphere.exchangis.project.server.utils.ExchangisProjectRestfulUtils;
 import com.webank.wedatasphere.linkis.server.Message;
-import com.webank.wedatasphere.linkis.server.security.SecurityFilter;
 import org.apache.commons.math3.util.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,16 +40,16 @@ public class ExchangisProjectRestful {
 
     @POST
     @Path("projects")
-    public Response queryProjects(@Context HttpServletRequest request, @Valid ProjectQueryRequest projectQueryRequest){
+    public Response queryProjects(@Context HttpServletRequest request, @Valid QueryProjectRequest queryProjectRequest){
         // TODO
 //        String username = SecurityFilter.getLoginUsername(request);
         String username = "hdfs";
-        if (null == projectQueryRequest) {
-            projectQueryRequest = new ProjectQueryRequest();
+        if (null == queryProjectRequest) {
+            queryProjectRequest = new QueryProjectRequest();
         }
-        projectQueryRequest.setUsername(username);
+        queryProjectRequest.setUsername(username);
         try{
-            List<ExchangisProjectDTO> projects = projectService.queryProjects(projectQueryRequest);
+            List<ExchangisProjectDTO> projects = projectService.queryProjects(queryProjectRequest);
             return Message.messageToResponse(Message.ok().data("list", projects));
         }catch(final Throwable t){
             LOGGER.error("failed to create project for user {}", username, t);

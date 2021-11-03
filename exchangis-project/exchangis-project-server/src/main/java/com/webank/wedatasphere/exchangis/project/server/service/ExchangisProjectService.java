@@ -6,7 +6,7 @@ import com.webank.wedatasphere.exchangis.project.server.dto.ExchangisProjectGetD
 import com.webank.wedatasphere.exchangis.project.server.entity.ExchangisProject;
 import com.webank.wedatasphere.exchangis.project.server.exception.ExchangisProjectErrorException;
 import com.webank.wedatasphere.exchangis.project.server.request.CreateProjectRequest;
-import com.webank.wedatasphere.exchangis.project.server.request.ProjectQueryRequest;
+import com.webank.wedatasphere.exchangis.project.server.request.QueryProjectRequest;
 import com.webank.wedatasphere.exchangis.project.server.request.UpdateProjectRequest;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,7 @@ public interface ExchangisProjectService {
 
      ExchangisProject updateProject(String username, UpdateProjectRequest updateProjectRequest) throws ExchangisProjectErrorException;
 
-     List<ExchangisProjectDTO> queryProjects(ProjectQueryRequest projectQueryRequest);
+     List<ExchangisProjectDTO> queryProjects(QueryProjectRequest queryProjectRequest);
 
      void deleteProject(HttpServletRequest request, String id);
 
