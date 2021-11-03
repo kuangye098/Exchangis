@@ -19,18 +19,18 @@
 
 package com.webank.wedatasphere.exchangis.project.server.common;
 
-import java.util.regex.Pattern;
-
 /**
  * 常量
  */
 public class Constants  {
 
-
     public static final String BASE_API_PATH = "/api/rest_s/v1/exchangis";
 
 
     public static final String RESTFUL_BASE_PATH ="/exchangis/";
+
+
+    public static final String EMPTY = "";
 
     /**
      * Token 前缀
@@ -42,4 +42,27 @@ public class Constants  {
      */
     public static final String TOKEN_HEADER_STRING = "Authorization";
 
+    /**
+     * Token 用户名
+     */
+    public static final String TOKEN_USER_NAME = "token_user_name";
+
+    /**
+     * Token 密码
+     */
+    public static final String TOKEN_USER_PASSWORD = "token_user_password";
+
+    /**
+     * Token 创建时间
+     */
+    public static final String TOKEN_CREATE_TIME = "token_create_time";
+
+
+    public static boolean isEmpty(String value) {
+        return isEmpty((CharSequence)value);
+    }
+
+    public static boolean isEmpty(CharSequence value) {
+        return value == null || value.length() == 0;
+    }
 }
