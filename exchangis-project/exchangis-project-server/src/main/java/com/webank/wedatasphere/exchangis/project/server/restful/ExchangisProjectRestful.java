@@ -1,6 +1,7 @@
 package com.webank.wedatasphere.exchangis.project.server.restful;
 
 
+import com.webank.wedatasphere.exchangis.project.server.common.Constants;
 import com.webank.wedatasphere.exchangis.project.server.dto.ExchangisProjectDTO;
 import com.webank.wedatasphere.exchangis.project.server.dto.ExchangisProjectGetDTO;
 import com.webank.wedatasphere.exchangis.project.server.entity.ExchangisProject;
@@ -8,7 +9,9 @@ import com.webank.wedatasphere.exchangis.project.server.request.CreateProjectReq
 import com.webank.wedatasphere.exchangis.project.server.request.QueryProjectRequest;
 import com.webank.wedatasphere.exchangis.project.server.request.UpdateProjectRequest;
 import com.webank.wedatasphere.exchangis.project.server.service.ExchangisProjectService;
+import com.webank.wedatasphere.exchangis.project.server.utils.CookieUtils;
 import com.webank.wedatasphere.exchangis.project.server.utils.ExchangisProjectRestfulUtils;
+import com.webank.wedatasphere.exchangis.project.server.utils.TokenUtils;
 import com.webank.wedatasphere.linkis.server.Message;
 import org.apache.commons.math3.util.Pair;
 import org.slf4j.Logger;
@@ -38,12 +41,18 @@ public class ExchangisProjectRestful {
     @Autowired
     private ExchangisProjectService projectService;
 
+    @Autowired
+    private TokenUtils tokenUtils;
+
+    private String getUserName(HttpServletRequest request){
+        return tokenUtils.getUsername(CookieUtils.getCookieValue(request, Constants.TOKEN_HEADER_STRING));
+    }
+
     @POST
     @Path("projects")
     public Response queryProjects(@Context HttpServletRequest request, @Valid QueryProjectRequest queryProjectRequest){
-        // TODO
-//        String username = SecurityFilter.getLoginUsername(request);
-        String username = "hdfs";
+        String username = getUserName(request);
+
         if (null == queryProjectRequest) {
             queryProjectRequest = new QueryProjectRequest();
         }
@@ -60,9 +69,8 @@ public class ExchangisProjectRestful {
     @GET
     @Path("projects/{projectId}")
     public Response queryProjects(@Context HttpServletRequest request, @PathParam("projectId") String projectId){
-        // TODO
-//        String username = SecurityFilter.getLoginUsername(request);
-        String username = "hdfs";
+        String username = getUserName(request);
+
         try{
             ExchangisProjectGetDTO dto = projectService.getProjectById(projectId);
             return Message.messageToResponse(Message.ok().data("item", dto));
@@ -75,9 +83,8 @@ public class ExchangisProjectRestful {
     @POST
     @Path("createProject")
     public Response createProject(@Context HttpServletRequest request, @Valid CreateProjectRequest createProjectRequest){
-        // TODO
-//        String username = SecurityFilter.getLoginUsername(request);
-        String username = "hdfs";
+        String username = getUserName(request);
+
         try{
             ExchangisProject exchangisProject = projectService.createProject(username, createProjectRequest);
             return ExchangisProjectRestfulUtils.dealOk("创建工程成功",
@@ -92,9 +99,8 @@ public class ExchangisProjectRestful {
     @PUT
     @Path("updateProject")
     public Response updateProject(@Context HttpServletRequest request, @Valid UpdateProjectRequest updateProjectRequest){
-        // TODO
-//        String username = SecurityFilter.getLoginUsername(request);
-        String username = "hdfs";
+        String username = getUserName(request);
+
         try {
             ExchangisProject exchangisProject = projectService.updateProject(username, updateProjectRequest);
             return ExchangisProjectRestfulUtils.dealOk("更新工程成功",
@@ -109,8 +115,8 @@ public class ExchangisProjectRestful {
     @DELETE
     @Path("/projects/{id}")
     public Response deleteProject(@Context HttpServletRequest request, @PathParam("id") String id){
-        String username = "hdfs";
-//        String username = SecurityFilter.getLoginUsername(request);
+        String username = getUserName(request);
+
         try {
             projectService.deleteProject(request, id);
             return ExchangisProjectRestfulUtils.dealOk("删除工程成功");
@@ -119,9 +125,5 @@ public class ExchangisProjectRestful {
             return ExchangisProjectRestfulUtils.dealError("删除工程失败,原因是:" + t.getMessage());
         }
     }
-
-
-
-
 
 }
