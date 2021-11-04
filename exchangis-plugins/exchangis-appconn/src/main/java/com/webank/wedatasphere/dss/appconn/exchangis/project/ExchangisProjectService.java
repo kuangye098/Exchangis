@@ -59,11 +59,15 @@ public class ExchangisProjectService extends ProjectService {
     }
 
     public ProjectUpdateOperation createProjectUpdateOperation() {
-        return null;
+        SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation
+                = getSSORequestService().createSSORequestOperation(ExchangisConf.APP_NAME.getValue());
+        return new ExchangisProjectUpdateOperation(this,ssoRequestOperation);
     }
 
     public ProjectDeletionOperation createProjectDeletionOperation() {
-        return null;
+        SSORequestOperation<HttpAction, HttpResult> ssoRequestOperation
+                = getSSORequestService().createSSORequestOperation(ExchangisConf.APP_NAME.getValue());
+        return new ExchangisProjectDeleteOperation(this,ssoRequestOperation);
     }
 
     public ProjectUrlOperation createProjectUrlOperation() {
