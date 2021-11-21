@@ -58,6 +58,9 @@ public class Constants  {
     public static final String TOKEN_CREATE_TIME = "token_create_time";
 
 
+    public static final String USER_TICKET_ID_STRING = "bdp-user-ticket-id";
+
+
     public static boolean isEmpty(String value) {
         return isEmpty((CharSequence)value);
     }
