@@ -73,7 +73,7 @@ public class ExchangisProjectDeleteOperation implements ProjectDeletionOperation
             LOGGER.info("{}, exchangis {}", requestRef.getName(), httpResponse.getResponseBody());
             if(httpResponse.getStatusCode() == 200){
                 responseRef = new ExchangisProjectResponseRef(httpResponse.getResponseBody(),0);
-                responseRef.setProjectRefId((Long)responseRef.toMap().get("projectId"));
+                responseRef.setErrorMsg("delete project in exchangis successfully.");
             }else {
                 ExchangisExceptionUtils.dealErrorException(60051,
                         "failed to delete project in exchangis : " + responseRef.getErrorMsg(),
