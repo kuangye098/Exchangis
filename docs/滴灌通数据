@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2021-12-17T00:12:39.047Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="-SwEkP5k1avZtoED_MzF" version="15.9.6" type="github">
+<mxfile host="app.diagrams.net" modified="2021-12-17T00:13:05.280Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36" etag="Bft3wTRvVsOwBSuJB0JF" version="15.9.6" type="github">
   <diagram id="rmS7wkWaUY7y5iOWODtY" name="Page-1">
     <mxGraphModel dx="2233" dy="765" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
@@ -41,10 +41,10 @@
           <mxGeometry x="-40" y="390" width="90" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Tc833jILnwOuTbCpTZLc-15" value="清洗任务配置" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="80" y="392" width="90" height="40" as="geometry" />
+          <mxGeometry x="80" y="388" width="90" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Tc833jILnwOuTbCpTZLc-16" value="清洗任务调度" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
-          <mxGeometry x="-40" y="465" width="90" height="40" as="geometry" />
+          <mxGeometry x="-40" y="461" width="90" height="40" as="geometry" />
         </mxCell>
         <mxCell id="Tc833jILnwOuTbCpTZLc-18" value="" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
           <mxGeometry x="250" y="180" width="280" height="90" as="geometry" />
